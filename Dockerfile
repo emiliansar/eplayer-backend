@@ -9,6 +9,7 @@ RUN yarn install --frozen-lockfile
 
 # Копируем исходный код и собираем
 COPY . .
+RUN npx prisma generate
 RUN yarn build
 
 # Открываем порт
