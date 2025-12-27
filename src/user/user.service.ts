@@ -8,6 +8,10 @@ import { UserUpdateDto } from './dto/update-user.dto';
 export class UserService {
     constructor(private prisma: PrismaService) {}
 
+    async getAll() {
+        return await this.prisma.user.findMany()
+    }
+
     async patchAcc(userId: number, dto: UserUpdateDto) {
         const user = await this.prisma.user.findUnique({
             where: {

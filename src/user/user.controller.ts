@@ -13,6 +13,11 @@ export class UserController {
     private historyService: HistoryService
   ) {}
 
+  @Get('all')
+  getAll() {
+    return this.userService.getAll()
+  }
+
   @UseGuards(AuthGuard)
   @Patch('patch-acc')
   patchAcc(@Request() req, @Body() dto: UserUpdateDto) {
