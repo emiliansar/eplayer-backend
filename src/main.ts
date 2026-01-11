@@ -6,14 +6,8 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // app.enableCors({
-  //   origin: true,
-  //   methods: 'GET,HEAD,PUT,PATCH,DELETE',
-  //   allowedHeaders: 'Authorization, Content-Type',
-  //   credentials: true,
-  // })
+  app.setGlobalPrefix('api');
 
-  // В бэкенде
   app.use(cors({
     origin: ['http://eplayer-music.ru', 'http://localhost'], // ваши домены
     credentials: true,
