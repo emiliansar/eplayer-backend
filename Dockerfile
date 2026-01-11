@@ -12,8 +12,10 @@ COPY . .
 RUN npx prisma generate
 RUN yarn build
 
+RUN chmod +x entry.sh
+
 # Открываем порт
 EXPOSE 3000
 
 # Запускаем приложение
-CMD ["node", "dist/main"]
+ENTRYPOINT [ "./entry.sh" ]
