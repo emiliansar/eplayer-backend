@@ -66,11 +66,26 @@ export class MusicController {
 
     await this.historyService.addHistory(userId, path)
 
-    const uploadsPath = process.env.UPLOADS_PATH || './uploads';
-    const file = join(uploadsPath, 'music/', path);
+    // const uploadsPath = process.env.UPLOADS_PATH || './uploads';
+    // const file = join(uploadsPath, 'music/', path);
 
+    // if (!existsSync(file)) {
+    //   throw new NotFoundException("Произведение не найдено");
+    // }
+
+    const file = `/app/uploads/music/${path}`;
+    console.log("Trying file:", file);
+    
     if (!existsSync(file)) {
-      throw new NotFoundException("Произведение не найдено");
+      // Пробуем альтернативный путь
+      const file2 = `/data/uploads/music/${path}`;
+      console.log("Trying alternative:", file2);
+      
+      if (!existsSync(file2)) {
+        throw new NotFoundException("Произведение не найдено");
+      }
+      
+      return res.sendFile(file2);
     }
 
     return res.sendFile(file);
