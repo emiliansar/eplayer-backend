@@ -57,8 +57,7 @@ export class MusicController {
     @Res() res: Response,
     @Query('id') userId: number
   ) {
-    console.log("audioPath: ", path);
-    console.log("userId: ", userId);
+    console.log("Request audio: ", path);
 
     if (!path || path === undefined) {
       throw new NotFoundException("Путь к файлу не указан");
@@ -66,26 +65,10 @@ export class MusicController {
 
     await this.historyService.addHistory(userId, path)
 
-    // const uploadsPath = process.env.UPLOADS_PATH || './uploads';
-    // const file = join(uploadsPath, 'music/', path);
+    const file = join(process.cwd(), 'uploads/music', path);
 
-    // if (!existsSync(file)) {
-    //   throw new NotFoundException("Произведение не найдено");
-    // }
-
-    const file = `/app/uploads/music/${path}`;
-    console.log("Trying file:", file);
-    
     if (!existsSync(file)) {
-      // Пробуем альтернативный путь
-      const file2 = `/data/uploads/music/${path}`;
-      console.log("Trying alternative:", file2);
-      
-      if (!existsSync(file2)) {
-        throw new NotFoundException("Произведение не найдено");
-      }
-      
-      return res.sendFile(file2);
+      throw new NotFoundException("Произведение не найдено");
     }
 
     return res.sendFile(file);
