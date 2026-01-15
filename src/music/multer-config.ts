@@ -15,9 +15,9 @@ export const multerOptions = {
             let folder = '';
 
             if (file.fieldname === 'preview') {
-                folder = './uploads/images';
+                folder = '/app/uploads/images';
             } else if (file.fieldname === 'audio') {
-                folder = './uploads/music';
+                folder = '/app/uploads/music';
             }
 
             createFolderIfNotExists(folder);

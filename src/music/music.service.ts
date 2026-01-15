@@ -108,14 +108,14 @@ export class MusicService {
         
         if (music.preview) {
             try {
-                unlinkSync('uploads/images/' + music.preview)
+                unlinkSync('/app/uploads/images/' + music.preview)
             } catch (error) {
                 throw error;
             }
         }
         if (music.path) {
             try {
-                unlinkSync('uploads/music/' + music.path)
+                unlinkSync('/app/uploads/music/' + music.path)
             } catch (error) {
                 throw error;
             }
@@ -280,7 +280,7 @@ export class MusicService {
     private saveFile(file: Express.Multer.File | undefined, folder: string): string | null {
         if (!file) return null;
 
-        const uploadDir = `uploads/${folder}`;
+        const uploadDir = `/app/uploads/${folder}`;
         if (!existsSync(uploadDir)) {
             mkdirSync(uploadDir, { recursive: true });
         }

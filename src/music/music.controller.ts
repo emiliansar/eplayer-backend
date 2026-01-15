@@ -41,7 +41,7 @@ export class MusicController {
   ) {
     console.log("previewPath: ", JSON.stringify(preview));
     try {
-      const file = join(process.cwd(), 'uploads/images/', preview);
+      const file = join('/app/uploads/images/', preview);
       return res.sendFile(file);
     } catch (error) {
       if (error.status === 404) {
@@ -65,7 +65,7 @@ export class MusicController {
 
     await this.historyService.addHistory(userId, path)
 
-    const file = join(process.cwd(), 'uploads/music', path);
+    const file = join('/app/uploads/music', path);
 
     if (!existsSync(file)) {
       throw new NotFoundException("Произведение не найдено");
@@ -100,7 +100,7 @@ export class MusicController {
     @Param('path') path: string,
     @Res({ passthrough: true }) res: Response
   ): Promise<StreamableFile> {
-    const file = createReadStream(join(process.cwd(), 'uploads/music/', path));
+    const file = createReadStream(join('/app/uploads/music/', path));
 
     res.set({
       'Content-Type': 'application/octet-stream',
