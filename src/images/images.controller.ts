@@ -13,7 +13,7 @@ export class ImagesController {
     @Res() res: Response
   ) {
     try {
-      const file = join(process.cwd(), 'uploads/images/', preview);
+      const file = join('/app/uploads/images/', preview);
       return res.sendFile(file);
     } catch (error) {
       if (error.status === 404) {
